@@ -15,31 +15,108 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <!-- START OF GRID BLOCK 0, 0-->
+        <TextBlock HorizontalAlignment="Left" Margin="10,20,0,0" Text="Name" Height="NaN"/>
+        <TextBox x:Name="TextBoxName" HorizontalAlignment="Left" Margin="10,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="30,22,0,8" Text="Name"/>
-        <TextBox x:Name="TextBoxName" HorizontalAlignment="Left" Margin="30,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,60,0,0" Text="Model" Height="NaN"/>
+        <TextBox x:Name="TextBoxModel" HorizontalAlignment="Left" Margin="10,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170"/>
+       
+        <TextBlock HorizontalAlignment="Left" Margin="10,104,0,0" Text="Issue" Height="NaN" Width="32"/>
+        <TextBox x:Name="TextBoxIssue" HorizontalAlignment="Left" Margin="10,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Height="160"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="30,62,0,8" Text="Name"/>
-        <TextBox HorizontalAlignment="Left" Margin="30,77,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="30,102,0,8" Text="Name"/>
-        <TextBox HorizontalAlignment="Left" Margin="30,117,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="230,22,0,0" Text="Service Tag" Height="NaN"/>
+        <TextBox x:Name="TextBoxTag" HorizontalAlignment="Left" Margin="230,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="30,142,0,8" Text="Name"/>
-        <TextBox HorizontalAlignment="Left" Margin="30,157,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="250" Height="100"/>
+        <TextBlock HorizontalAlignment="Left" Margin="230,61,0,0" Text="Service Fee" Height="NaN"/>
+        <TextBox x:Name="TextBoxServiceFee" HorizontalAlignment="Left" Margin="230,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="185,22,0,8" Text="Service Tag"/>
-        <TextBox HorizontalAlignment="Left" Margin="185,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        
+        <TextBlock HorizontalAlignment="Left" Margin="230,104,0,0" Text="Queue Type" Height="NaN"/>
+        <RadioButton Content="Standard" GroupName="" HorizontalAlignment="Left" Margin="230,125,0,0" VerticalAlignment="Top"/>
+        <RadioButton Content="Express" HorizontalAlignment="Left" Margin="230,146,0,0" VerticalAlignment="Top"/>
 
-        <RadioButton Content="Standard" HorizontalAlignment="Left" Margin="180,77,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="Express" HorizontalAlignment="Left" Margin="180,117,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="230,184,0,0" TextWrapping="Wrap" Text="Total Cost" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextBoxCost" HorizontalAlignment="Left" Margin="230,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
 
-        <Button Content="Add Service"  HorizontalAlignment="Left" Margin="290,20,0,0" VerticalAlignment="Top" Width="100" Height="50"/>
-        <Button HorizontalAlignment="Left" Margin="290,110,0,0" VerticalAlignment="Top" Width="100" Height="50" HorizontalContentAlignment="Center" Background="#FF41DD4A">
-            <TextBlock Text="Complete Standard Service" TextWrapping="Wrap"/>
+        <Button x:Name="ButtonAdd" Content="Add Drone" HorizontalAlignment="Left" Margin="230,245,0,0" VerticalAlignment="Top" Width="160" Height="35"/>
+        <!-- END OF GRID BLOCK 0, 0 -->
+        
+        <!-- START OF GRID BLOCK 0, 1 -->
+        <ListView x:Name="ListViewExpressQueue" Grid.Column="1" Margin="10,10,10,67">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding ExpressName}" Width="90"/>
+                    <GridViewColumn Header="Model" DisplayMemberBinding="{Binding ExpressModel}" Width="90"/>
+                    <GridViewColumn Header="Tag" DisplayMemberBinding="{Binding ExpressTag}" Width="90"/>
+                    <GridViewColumn Header="Cost" DisplayMemberBinding="{Binding ExpressCost}" Width="90"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Label Grid.Column="1" Content="Express Queue" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" FontSize="38" FontFamily="Agency FB" BorderBrush="Black" BorderThickness="1" Foreground="#FF0090FF" Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"/>
+
+        <Button x:Name="ButtonDequeueExpress" HorizontalAlignment="Left" Margin="290,230,0,0" VerticalAlignment="Top" Width="100" Height="50" HorizontalContentAlignment="Center" Grid.Column="3">
+            <!-- &#10; is an escape sequence for a new line -->
+            <TextBlock Text="Complete &#10;Express Service" TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="290,200,0,0" VerticalAlignment="Top" Width="100" Height="50" HorizontalContentAlignment="Center">
-            <TextBlock Text="Complete Express Service" TextWrapping="Wrap"/>
+
+        <!-- END OF GRID BLOCK 0, 1 -->
+
+        <!-- START OF GRID BLOCK 1, 0 -->
+        <ListView x:Name="ListViewCompleted" Grid.Row="1" Grid.Column="0" Margin="10,10,0,67">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding CompletedName}" Width="90"/>
+                    <GridViewColumn Header="Model" DisplayMemberBinding="{Binding CompletedModel}" Width="90"/>
+                    <GridViewColumn Header="Tag" DisplayMemberBinding="{Binding CompletedTag}" Width="90"/>
+                    <GridViewColumn Header="Cost" DisplayMemberBinding="{Binding CompletedCost}" Width="90"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+        <Label Grid.Row="1" Grid.Column="0" Content="Services Comeplete" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" FontSize="38" FontFamily="Agency FB" BorderBrush="Black" BorderThickness="1" Foreground="Black">
+            <Label.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                            <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                            <RotateTransform Angle="-32.735" CenterX="0.5" CenterY="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FF68FCB1"/>
+                    <GradientStop Color="#FF0CDA72" Offset="1"/>
+                </LinearGradientBrush>
+            </Label.Background>
+        </Label>
+
+        <Button HorizontalAlignment="Left" Margin="290,230,0,0" VerticalAlignment="Top" Width="100" Height="50" HorizontalContentAlignment="Center" Background="#FFDDDDDD" Grid.Column="0" Grid.Row="1">
+            <TextBlock Text="Drone Service Paid and Collected" TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
+
+        <!-- END OF GRID BLOCK 1, 0 -->
+
+        <!-- START OF GRID BLOCK 1, 1 -->
+        <ListView x:Name="ListViewRegularQueue" Grid.Row="1" Grid.Column="1" Margin="10,10,10,67">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding RegularName}" Width="90"/>
+                    <GridViewColumn Header="Model" DisplayMemberBinding="{Binding RegularModel}" Width="90"/>
+                    <GridViewColumn Header="Tag" DisplayMemberBinding="{Binding RegularTag}" Width="90"/>
+                    <GridViewColumn Header="Cost" DisplayMemberBinding="{Binding RegularCost}" Width="90"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Label Grid.Row="1" Grid.Column="1" Content="Regular Queue" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" FontSize="38" FontFamily="Agency FB" BorderBrush="#FF000000" BorderThickness="1" Foreground="#FF697884" Background="#FFE1FFEE"/>
+
+        <Button HorizontalAlignment="Left" Margin="290,230,0,0" VerticalAlignment="Top" Width="100" Height="50" HorizontalContentAlignment="Center" Background="#FFDDDDDD" Grid.Column="1" Grid.Row="1">
+            <TextBlock Text="Complete Standard Service" TextWrapping="Wrap" TextAlignment="Center"/>
+        </Button>
+
+        <!-- END OF GRID BLOCK 1, 1 -->
     </Grid>
 </Window>
