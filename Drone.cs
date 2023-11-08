@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace DroneSerivceForm
 {
@@ -56,7 +53,7 @@ namespace DroneSerivceForm
         {
             return _issue;
         }
-        public void SetIssue(string issue) 
+        public void SetIssue(string issue)
         {
             if (!string.IsNullOrEmpty(_issue))
             {
@@ -74,6 +71,7 @@ namespace DroneSerivceForm
         }
         public void SetCost(double cost)
         {
+
             _cost = cost;
         }
 
