@@ -9,7 +9,9 @@ using System.Windows.Controls;
 namespace DroneSerivceForm
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// James Chellew # 30071566
+    /// C# Assessment task 3 - Icarus Drone Service Form.
+    /// 9/11/2023
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -21,12 +23,12 @@ namespace DroneSerivceForm
         {
             TextBoxTag.Text = "100";
         }
-        // 6.2	Create a global List<T> of type Drone called “FinishedList”. 
-        List<Drone> FinishedList = new();
+        // 6.2	Create a global List<T> of type Drone called “completedList”. 
+        List<Drone> completedList = new();
         //6.3	Create a global Queue<T> of type Drone called “RegularService”.
-        Queue<Drone> RegularQueue = new();
+        Queue<Drone> RegularService = new();
         //6.4	Create a global Queue<T> of type Drone called “ExpressService”.
-        Queue<Drone> ExpressQueue = new();
+        Queue<Drone> ExpressService = new();
 
 
         // 6.5 Create a button method called “AddNewItem” that will add a new service item to a Queue<> based on the priority.
@@ -45,12 +47,12 @@ namespace DroneSerivceForm
                 string servicePrioryType = GetServicePriority();
                 if (servicePrioryType == "Regular")
                 {
-                    RegularQueue.Enqueue(newDrone);
+                    RegularService.Enqueue(newDrone);
                     DisplayRegularQueue();
                 }
                 else if (servicePrioryType == "Express")
                 {
-                    ExpressQueue.Enqueue(newDrone);
+                    ExpressService.Enqueue(newDrone);
                     DisplayExpressQueue();
                 }
                 else
@@ -123,7 +125,7 @@ namespace DroneSerivceForm
         private void DisplayRegularQueue()
         {
             ListViewRegularQueue.Items.Clear();
-            foreach (Drone dr in RegularQueue)
+            foreach (Drone dr in RegularService)
             {
                 ListViewRegularQueue.Items.Add(new
                 { RegularName = dr.GetName(), RegularModel = dr.GetModel(), RegularTag = dr.GetTag(), RegularCost = dr.GetCost() });
@@ -134,7 +136,7 @@ namespace DroneSerivceForm
         private void DisplayExpressQueue()
         {
             ListViewExpressQueue.Items.Clear();
-            foreach (Drone dr in ExpressQueue)
+            foreach (Drone dr in ExpressService)
             {
                 ListViewExpressQueue.Items.Add(new
                 { ExpressName = dr.GetName(), ExpressModel = dr.GetModel(), ExpressTag = dr.GetTag(), ExpressCost = dr.GetCost() });
@@ -168,7 +170,7 @@ namespace DroneSerivceForm
         {
             return (int.Parse(previousTag) + 50).ToString();
         }
-
+        // 6.17	Create a custom method that will clear all the textboxes after each service item has been added.
         private void ClearTextBoxes()
         {
             TextBoxName.Clear();
@@ -186,14 +188,14 @@ namespace DroneSerivceForm
             if (ListViewRegularQueue.SelectedItems.Count > 0)
             {
                 int index = ListViewRegularQueue.SelectedIndex;
-                TextBoxName.Text = RegularQueue.ElementAt(index).GetName();
-                TextBoxModel.Text = RegularQueue.ElementAt(index).GetModel();
-                TextBoxIssue.Text = RegularQueue.ElementAt(index).GetIssue();
-                TextBoxTag.Text = RegularQueue.ElementAt(index).GetTag().ToString();
-                TextBoxServiceFee.Text = RegularQueue.ElementAt(index).GetCost().ToString();
+                TextBoxName.Text = RegularService.ElementAt(index).GetName();
+                TextBoxModel.Text = RegularService.ElementAt(index).GetModel();
+                TextBoxIssue.Text = RegularService.ElementAt(index).GetIssue();
+                TextBoxTag.Text = RegularService.ElementAt(index).GetTag().ToString();
+                TextBoxServiceFee.Text = RegularService.ElementAt(index).GetCost().ToString();
                 RadioButtonRegular.IsChecked = true;
                 RadioButtonExpress.IsChecked = false;
-                TextBoxCost.Text = RegularQueue.ElementAt(index).GetCost().ToString();
+                TextBoxCost.Text = RegularService.ElementAt(index).GetCost().ToString();
             }
         }
       
@@ -209,14 +211,14 @@ namespace DroneSerivceForm
             if (ListViewExpressQueue.SelectedItems.Count > 0)
             {
                 int index = ListViewExpressQueue.SelectedIndex;
-                TextBoxName.Text = ExpressQueue.ElementAt(index).GetName();
-                TextBoxModel.Text = ExpressQueue.ElementAt(index).GetModel();
-                TextBoxIssue.Text = ExpressQueue.ElementAt(index).GetIssue();
-                TextBoxTag.Text = ExpressQueue.ElementAt(index).GetTag().ToString();
-                TextBoxServiceFee.Text = (ExpressQueue.ElementAt(index).GetCost() / 1.15).ToString();
+                TextBoxName.Text = ExpressService.ElementAt(index).GetName();
+                TextBoxModel.Text = ExpressService.ElementAt(index).GetModel();
+                TextBoxIssue.Text = ExpressService.ElementAt(index).GetIssue();
+                TextBoxTag.Text = ExpressService.ElementAt(index).GetTag().ToString();
+                TextBoxServiceFee.Text = (ExpressService.ElementAt(index).GetCost() / 1.15).ToString();
                 RadioButtonRegular.IsChecked = false;
                 RadioButtonExpress.IsChecked = true;
-                TextBoxCost.Text = ExpressQueue.ElementAt(index).GetCost().ToString();
+                TextBoxCost.Text = ExpressService.ElementAt(index).GetCost().ToString();
             }
         }
         private void ListViewExpressQueue_LostFocus(object sender, RoutedEventArgs e)
@@ -227,18 +229,47 @@ namespace DroneSerivceForm
 
         private void DisplayCompletedList()
         {
-            foreach(Drone dr in FinishedList)
+            ListBoxCompleted.Items.Clear();
+            foreach (Drone dr in completedList)
             {
-
+                ListBoxCompleted.Items.Add($"{dr.GetTag()} - {dr.GetName()}: {dr.GetModel()} ${dr.GetCost()}");
+            }
+        }
+        
+        // 6.14	Create a button click method that will remove a service item from the regular ListView and dequeue the regular service Queue<T> data structure.
+        // The dequeued item must be added to the List<T> and displayed in the ListBox for finished service items.
+        private void ButtonDequeueRegular_Click(object sender, RoutedEventArgs e)
+        {
+            if (RegularService.Count > 0)
+            {
+                completedList.Add(RegularService.Dequeue());
+                DisplayRegularQueue();
+                DisplayCompletedList();
+            }
+        }
+        // 6.15	Create a button click method that will remove a service item from the express ListView and dequeue the express service Queue<T> data structure.
+        // The dequeued item must be added to the List<T> and displayed in the ListBox for finished service items.
+        private void ButtonDequeueExpress_Click(object sender, RoutedEventArgs e)
+        {
+            if (ExpressService.Count > 0)
+            {
+                completedList.Add(ExpressService.Dequeue());
+                DisplayExpressQueue();
+                DisplayCompletedList();
             }
         }
 
-        private void ButtonDequeueExpress_Click(object sender, RoutedEventArgs e)
+        // 6.16	Create a double mouse click method that will delete a service item from the finished listbox and remove the same item from the List<T>.
+        private void ListBoxCompleted_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            FinishedList.Add(ExpressQueue.Dequeue());
-            DisplayExpressQueue();
-            DisplayCompletedList();
+            if (ListBoxCompleted.SelectedItems.Count > 0)
+            {
+                int deleteIndex = ListBoxCompleted.SelectedIndex;
+                completedList.RemoveAt(deleteIndex);
+                DisplayCompletedList();
+            }
         }
+
     }
 
 }

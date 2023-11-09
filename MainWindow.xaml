@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DroneSerivceForm"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" Loaded="Window_Loaded">
+        Title="MainWindow" Height="600" Width="775" Loaded="Window_Loaded" MinWidth="775" MinHeight="600" >
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -16,39 +16,38 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <!-- START OF GRID BLOCK 0, 0-->
-        <TextBlock HorizontalAlignment="Left" Margin="10,20,0,0" Text="Name" Height="NaN"/>
-        <TextBox x:Name="TextBoxName" HorizontalAlignment="Left" Margin="10,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,20" Text="Name" Height="NaN"/>
+        <TextBox x:Name="TextBoxName" HorizontalAlignment="Stretch" Margin="10,37,150,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="10,60,0,0" Text="Model" Height="NaN"/>
-        <TextBox x:Name="TextBoxModel" HorizontalAlignment="Left" Margin="10,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170"/>
+        <TextBox x:Name="TextBoxModel" HorizontalAlignment="Stretch" Margin="10,77,150,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="10,104,0,0" Text="Issue" Height="NaN" Width="32"/>
-        <TextBox x:Name="TextBoxIssue" HorizontalAlignment="Left" Margin="10,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Height="160"/>
+        <TextBox x:Name="TextBoxIssue" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,119,150,10" TextWrapping="Wrap"/>
 
+        <TextBlock HorizontalAlignment="Right" Margin="0,22,60,0" Text="Service Tag" Height="NaN"/>
+        <TextBox x:Name="TextBoxTag" HorizontalAlignment="Right" Margin="0,37,20,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="230,22,0,0" Text="Service Tag" Height="NaN"/>
-        <TextBox x:Name="TextBoxTag" HorizontalAlignment="Left" Margin="230,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
-
-        <TextBlock HorizontalAlignment="Left" Margin="230,61,0,0" Text="Service Fee" Height="NaN"/>
-        <TextBox x:Name="TextBoxServiceFee" HorizontalAlignment="Left" Margin="230,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" LostFocus="TextBoxServiceFee_LostFocus"/>
-        <TextBlock x:Name="TextBlockErrorMessage" HorizontalAlignment="Left" Margin="230,95,0,0" TextWrapping="Wrap" Text="*Enter Number with 2 Decimal Places" VerticalAlignment="Top" FontSize="8" Visibility="Hidden">
+        <TextBlock HorizontalAlignment="Right" Margin="0,61,60,0" Text="Service Fee" Height="NaN"/>
+        <TextBox x:Name="TextBoxServiceFee" HorizontalAlignment="Right" Margin="0,77,20,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" LostFocus="TextBoxServiceFee_LostFocus"/>
+        <TextBlock x:Name="TextBlockErrorMessage" HorizontalAlignment="Right" Margin="0,95,20,0" TextWrapping="Wrap" Text="*Enter Valid Number" VerticalAlignment="Top" FontSize="8" Visibility="Hidden">
             <TextBlock.Foreground>
                 <SolidColorBrush Color="Red" Opacity="1"/>
             </TextBlock.Foreground>
         </TextBlock>
 
-        <TextBlock HorizontalAlignment="Left" Margin="230,112,0,284" Text="Queue Type" Height="NaN" Grid.RowSpan="2"/>
-        <RadioButton x:Name="RadioButtonRegular" Content="Regular" GroupName="QueueSelection" HorizontalAlignment="Left" Margin="230,133,0,0" VerticalAlignment="Top" Checked="RadioButtonRegular_Checked"/>
-        <RadioButton x:Name="RadioButtonExpress" Content="Express" GroupName="QueueSelection" HorizontalAlignment="Left" Margin="230,154,0,0" VerticalAlignment="Top" Checked="RadioButtonExpress_Checked"/>
+        <TextBlock HorizontalAlignment="Right" Margin="0,111,58,0" Text="Queue Type" Height="NaN" Grid.RowSpan="2"/>
+        <RadioButton x:Name="RadioButtonRegular" Content="Regular" GroupName="QueueSelection" HorizontalAlignment="Right" Margin="0,133,65,0" VerticalAlignment="Top" Checked="RadioButtonRegular_Checked"/>
+        <RadioButton x:Name="RadioButtonExpress" Content="Express" GroupName="QueueSelection" HorizontalAlignment="Right" Margin="0,154,65,0" VerticalAlignment="Top" Checked="RadioButtonExpress_Checked"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="230,184,0,0" TextWrapping="Wrap" Text="Total Cost" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextBoxCost" HorizontalAlignment="Left" Margin="230,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
+        <TextBlock HorizontalAlignment="Right" Margin="0,184,67,0" TextWrapping="Wrap" Text="Total Cost" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextBoxCost" HorizontalAlignment="Right" Margin="0,200,20,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100"/>
 
-        <Button x:Name="ButtonAdd" Content="Add Drone" HorizontalAlignment="Left" Margin="230,245,0,0" VerticalAlignment="Top" Width="160" Height="35" Click="ButtonAdd_Click"/>
+        <Button x:Name="ButtonAdd" Content="Add Drone" HorizontalAlignment="Right" Margin="230,235,20,10" VerticalAlignment="Stretch" Width="100" Click="ButtonAdd_Click"/>
         <!-- END OF GRID BLOCK 0, 0 -->
 
         <!-- START OF GRID BLOCK 0, 1 -->
-        <ListView x:Name="ListViewExpressQueue" Grid.Column="1" Margin="10,10,10,67" LostFocus="ListViewExpressQueue_LostFocus" SelectionChanged="ListViewExpressQueue_SelectionChanged">
+        <ListView x:Name="ListViewExpressQueue" Grid.Column="1" Margin="10,10,10,70" LostFocus="ListViewExpressQueue_LostFocus" SelectionChanged="ListViewExpressQueue_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding ExpressName}" Width="90"/>
@@ -59,9 +58,9 @@
             </ListView.View>
         </ListView>
 
-        <Label Grid.Column="1" Content="Express Queue" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" FontSize="38" FontFamily="Agency FB" BorderBrush="Black" BorderThickness="1" Foreground="#FF0090FF" Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"/>
+        <Label Grid.Column="1" Content="Express Queue" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" FontSize="38" FontFamily="Agency FB" BorderBrush="Black" BorderThickness="1" Foreground="#FF0090FF" Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"/>
 
-        <Button x:Name="ButtonDequeueExpress" HorizontalAlignment="Left" Margin="290,230,0,0" VerticalAlignment="Top" Width="100" Height="50" HorizontalContentAlignment="Center" Grid.Column="3" Click="ButtonDequeueExpress_Click">
+        <Button x:Name="ButtonDequeueExpress" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="50" HorizontalContentAlignment="Center" Grid.Column="3" Click="ButtonDequeueExpress_Click">
             <!-- &#10; is an escape sequence for a new line -->
             <TextBlock Text="Complete &#10;Express Service" TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
@@ -69,18 +68,8 @@
         <!-- END OF GRID BLOCK 0, 1 -->
 
         <!-- START OF GRID BLOCK 1, 0 -->
-        <ListView x:Name="ListViewCompleted" Grid.Row="1" Grid.Column="0" Margin="10,10,0,67">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding CompletedName}" Width="90"/>
-                    <GridViewColumn Header="Model" DisplayMemberBinding="{Binding CompletedModel}" Width="90"/>
-                    <GridViewColumn Header="Tag" DisplayMemberBinding="{Binding CompletedTag}" Width="90"/>
-                    <GridViewColumn Header="Cost" DisplayMemberBinding="{Binding CompletedCost}" Width="90"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-
-        <Label Grid.Row="1" Grid.Column="0" Content="Services Comeplete" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" FontSize="38" FontFamily="Agency FB" BorderBrush="Black" BorderThickness="1" Foreground="Black">
+        <ListBox x:Name="ListBoxCompleted" Height="NaN" Margin="10,5,10,70" Width="NaN" Grid.Row="1" MouseDoubleClick="ListBoxCompleted_MouseDoubleClick"  />
+        <Label Grid.Row="1" Grid.Column="0" Content="Services Comeplete" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" FontSize="38" FontFamily="Agency FB" BorderBrush="Black" BorderThickness="1" Foreground="Black">
             <Label.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <LinearGradientBrush.RelativeTransform>
@@ -97,14 +86,14 @@
             </Label.Background>
         </Label>
 
-        <Button HorizontalAlignment="Left" Margin="290,230,0,0" VerticalAlignment="Top" Width="100" Height="50" HorizontalContentAlignment="Center" Background="#FFDDDDDD" Grid.Column="0" Grid.Row="1">
+        <Button HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="50" HorizontalContentAlignment="Center" Background="#FFDDDDDD" Grid.Column="0" Grid.Row="1">
             <TextBlock Text="Drone Service Paid and Collected" TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
 
         <!-- END OF GRID BLOCK 1, 0 -->
 
         <!-- START OF GRID BLOCK 1, 1 -->
-        <ListView x:Name="ListViewRegularQueue" Grid.Row="1" Grid.Column="1" Margin="10,10,10,67" LostFocus="ListViewRegularQueue_LostFocus" SelectionChanged="ListViewRegularQueue_SelectionChanged">
+        <ListView x:Name="ListViewRegularQueue" Grid.Row="1" Grid.Column="1" Margin="10,10,10,70" LostFocus="ListViewRegularQueue_LostFocus" SelectionChanged="ListViewRegularQueue_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding RegularName}" Width="90"/>
@@ -115,12 +104,12 @@
             </ListView.View>
         </ListView>
 
-        <Label Grid.Row="1" Grid.Column="1" Content="Regular Queue" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" FontSize="38" FontFamily="Agency FB" BorderBrush="#FF000000" BorderThickness="1" Foreground="#FF697884" Background="#FFE1FFEE"/>
+        <Label Grid.Row="1" Grid.Column="1" Content="Regular Queue" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" FontSize="38" FontFamily="Agency FB" BorderBrush="#FF000000" BorderThickness="1" Foreground="#FF697884" Background="#FFE1FFEE"/>
 
-        <Button HorizontalAlignment="Left" Margin="290,230,0,0" VerticalAlignment="Top" Width="100" Height="50" HorizontalContentAlignment="Center" Background="#FFDDDDDD" Grid.Column="1" Grid.Row="1">
+        <Button x:Name="ButtonDequeueRegular" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="50" HorizontalContentAlignment="Center" Background="#FFDDDDDD" Grid.Column="1" Grid.Row="1" Click="ButtonDequeueRegular_Click">
             <TextBlock Text="Complete Standard Service" TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
-      
+
 
         <!-- END OF GRID BLOCK 1, 1 -->
     </Grid>
