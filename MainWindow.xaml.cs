@@ -224,6 +224,21 @@ namespace DroneSerivceForm
             ListViewExpressQueue.UnselectAll();
             ClearTextBoxes();
         }
+
+        private void DisplayCompletedList()
+        {
+            foreach(Drone dr in FinishedList)
+            {
+
+            }
+        }
+
+        private void ButtonDequeueExpress_Click(object sender, RoutedEventArgs e)
+        {
+            FinishedList.Add(ExpressQueue.Dequeue());
+            DisplayExpressQueue();
+            DisplayCompletedList();
+        }
     }
 
 }

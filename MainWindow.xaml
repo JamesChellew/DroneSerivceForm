@@ -61,7 +61,7 @@
 
         <Label Grid.Column="1" Content="Express Queue" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" FontSize="38" FontFamily="Agency FB" BorderBrush="Black" BorderThickness="1" Foreground="#FF0090FF" Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"/>
 
-        <Button x:Name="ButtonDequeueExpress" HorizontalAlignment="Left" Margin="290,230,0,0" VerticalAlignment="Top" Width="100" Height="50" HorizontalContentAlignment="Center" Grid.Column="3">
+        <Button x:Name="ButtonDequeueExpress" HorizontalAlignment="Left" Margin="290,230,0,0" VerticalAlignment="Top" Width="100" Height="50" HorizontalContentAlignment="Center" Grid.Column="3" Click="ButtonDequeueExpress_Click">
             <!-- &#10; is an escape sequence for a new line -->
             <TextBlock Text="Complete &#10;Express Service" TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
