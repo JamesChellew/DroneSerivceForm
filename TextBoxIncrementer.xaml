@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="DroneSerivceForm.TextBoxIncrementer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DroneSerivceForm"
+             mc:Ignorable="d" 
+             d:DesignHeight="20" d:DesignWidth="100">
+    <Grid>
+        <Button x:Name="ButtonUp" HorizontalAlignment="Right" VerticalAlignment="Top" Height="10" Width="10" Panel.ZIndex="10" Content="^" FontSize="7" Click="ButtonUp_Click"/>
+        <Button x:Name="ButtonDown" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="10" Width="10" Panel.ZIndex="10" RenderTransformOrigin="0.5,0.5" Content="^" FontSize="7" Click="ButtonDown_Click" >
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="180"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <TextBox x:Name="TextBox" Panel.ZIndex="-1"/>
+
+    </Grid>
+</UserControl>

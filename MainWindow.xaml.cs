@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -21,7 +19,7 @@ namespace DroneSerivceForm
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            TextBoxTag.Text = "100";
+            TextBoxTag.TextBox.Text = nextServiceTag.ToString();
         }
         // 6.2	Create a global List<T> of type Drone called “completedList”. 
         List<Drone> completedList = new();
@@ -29,7 +27,8 @@ namespace DroneSerivceForm
         Queue<Drone> RegularService = new();
         //6.4	Create a global Queue<T> of type Drone called “ExpressService”.
         Queue<Drone> ExpressService = new();
-
+        // Keeping track of service tag
+        private static int nextServiceTag = 100;
 
         // 6.5 Create a button method called “AddNewItem” that will add a new service item to a Queue<> based on the priority.
         // Use TextBoxes for the Client Name, Drone Model, Service Problem and Service Cost. Use a numeric control for the Service Tag.
@@ -42,9 +41,12 @@ namespace DroneSerivceForm
                 newDrone.SetName(TextBoxName.Text);
                 newDrone.SetModel(TextBoxModel.Text);
                 newDrone.SetIssue(TextBoxIssue.Text);
-                newDrone.SetTag(int.Parse(TextBoxTag.Text)); // Change this later
-                newDrone.SetCost(double.Parse(TextBoxCost.Text)); // Change this later
+                newDrone.SetTag(int.Parse(TextBoxTag.TextBox.Text)); // Change this later
+                newDrone.SetCost(double.Parse(TextBoxCost.Text)); // Cannot contain letters, safe to Parse
                 string servicePrioryType = GetServicePriority();
+
+                string nextServiceTag = IncrementServiceTag(TextBoxTag.TextBox.Text); // The next Tag is Caculated before adding to queue
+
                 if (servicePrioryType == "Regular")
                 {
                     RegularService.Enqueue(newDrone);
@@ -60,9 +62,12 @@ namespace DroneSerivceForm
                     MessageBox.Show("Select a queue type", "Invalid Queue", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-                string nextServiceTag = IncrementServiceTag(TextBoxTag.Text);
                 ClearTextBoxes();
-                TextBoxTag.Text = nextServiceTag;
+                TextBoxTag.TextBox.Text = nextServiceTag;
+            }
+            else
+            {
+                
             }
         }
         // 6.7	Create a custom method called “GetServicePriority” which returns the value of the priority radio group.
@@ -87,7 +92,7 @@ namespace DroneSerivceForm
             if (string.IsNullOrWhiteSpace(TextBoxName.Text) ||
                 string.IsNullOrWhiteSpace(TextBoxModel.Text) ||
                 string.IsNullOrWhiteSpace(TextBoxIssue.Text) ||
-                string.IsNullOrWhiteSpace(TextBoxTag.Text) ||
+                string.IsNullOrWhiteSpace(TextBoxTag.TextBox.Text) ||
                 string.IsNullOrWhiteSpace(TextBoxServiceFee.Text))
             {
                 return false;
@@ -102,7 +107,7 @@ namespace DroneSerivceForm
                 bool tryConvertCost = double.TryParse(TextBoxServiceFee.Text, out double totalCost);
                 if (tryConvertCost)
                 {
-                    TextBoxCost.Text = (totalCost*1.15).ToString("F2");
+                    TextBoxCost.Text = (totalCost * 1.15).ToString("F2");
                     return;
                 }
             }
@@ -168,7 +173,8 @@ namespace DroneSerivceForm
         // before the new service item is added to a queue.
         private string IncrementServiceTag(string previousTag)
         {
-            return (int.Parse(previousTag) + 50).ToString();
+            nextServiceTag += 50;
+            return nextServiceTag.ToString();
         }
         // 6.17	Create a custom method that will clear all the textboxes after each service item has been added.
         private void ClearTextBoxes()
@@ -176,7 +182,7 @@ namespace DroneSerivceForm
             TextBoxName.Clear();
             TextBoxModel.Clear();
             TextBoxIssue.Clear();
-            TextBoxTag.Clear();
+            TextBoxTag.TextBox.Text = nextServiceTag.ToString();
             TextBoxServiceFee.Clear();
             RadioButtonRegular.IsChecked = false;
             RadioButtonExpress.IsChecked = false;
@@ -191,20 +197,20 @@ namespace DroneSerivceForm
                 TextBoxName.Text = RegularService.ElementAt(index).GetName();
                 TextBoxModel.Text = RegularService.ElementAt(index).GetModel();
                 TextBoxIssue.Text = RegularService.ElementAt(index).GetIssue();
-                TextBoxTag.Text = RegularService.ElementAt(index).GetTag().ToString();
-                TextBoxServiceFee.Text = RegularService.ElementAt(index).GetCost().ToString();
+                TextBoxTag.TextBox.Text = RegularService.ElementAt(index).GetTag().ToString();
+                TextBoxServiceFee.Text = RegularService.ElementAt(index).GetCost().ToString("F2");
                 RadioButtonRegular.IsChecked = true;
                 RadioButtonExpress.IsChecked = false;
                 TextBoxCost.Text = RegularService.ElementAt(index).GetCost().ToString();
             }
         }
-      
+
         private void ListViewRegularQueue_LostFocus(object sender, RoutedEventArgs e)
         {
             ListViewRegularQueue.UnselectAll();
             ClearTextBoxes();
         }
-      
+
         // 6.13	Create a mouse click method for the express service ListView that will display the Client Name and Service Problem in the related textboxes.
         private void ListViewExpressQueue_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -214,8 +220,8 @@ namespace DroneSerivceForm
                 TextBoxName.Text = ExpressService.ElementAt(index).GetName();
                 TextBoxModel.Text = ExpressService.ElementAt(index).GetModel();
                 TextBoxIssue.Text = ExpressService.ElementAt(index).GetIssue();
-                TextBoxTag.Text = ExpressService.ElementAt(index).GetTag().ToString();
-                TextBoxServiceFee.Text = (ExpressService.ElementAt(index).GetCost() / 1.15).ToString();
+                TextBoxTag.TextBox.Text = ExpressService.ElementAt(index).GetTag().ToString();
+                TextBoxServiceFee.Text = (ExpressService.ElementAt(index).GetCost() / 1.15).ToString("F2");
                 RadioButtonRegular.IsChecked = false;
                 RadioButtonExpress.IsChecked = true;
                 TextBoxCost.Text = ExpressService.ElementAt(index).GetCost().ToString();
@@ -235,7 +241,7 @@ namespace DroneSerivceForm
                 ListBoxCompleted.Items.Add($"{dr.GetTag()} - {dr.GetName()}: {dr.GetModel()} ${dr.GetCost()}");
             }
         }
-        
+
         // 6.14	Create a button click method that will remove a service item from the regular ListView and dequeue the regular service Queue<T> data structure.
         // The dequeued item must be added to the List<T> and displayed in the ListBox for finished service items.
         private void ButtonDequeueRegular_Click(object sender, RoutedEventArgs e)
@@ -260,7 +266,7 @@ namespace DroneSerivceForm
         }
 
         // 6.16	Create a double mouse click method that will delete a service item from the finished listbox and remove the same item from the List<T>.
-        private void ListBoxCompleted_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void DeleteServiceEntry()
         {
             if (ListBoxCompleted.SelectedItems.Count > 0)
             {
@@ -269,7 +275,69 @@ namespace DroneSerivceForm
                 DisplayCompletedList();
             }
         }
+        private void ListBoxCompleted_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            DeleteServiceEntry();
+        }
 
+        private void ButtonDroneCollected_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteServiceEntry();
+        }
+
+        private void TextBoxTag_LostFocus(object sender, RoutedEventArgs e)
+        {
+            CheckServiceTag();
+        }
+
+        private void CheckServiceTag()
+        {
+            if (string.IsNullOrWhiteSpace(TextBoxTag.TextBox.Text) || !int.TryParse(TextBoxTag.TextBox.Text, out int serviceTag))
+            {
+                TextBoxTag.TextBox.Text = nextServiceTag.ToString();
+            }
+            else
+            {
+                TextBoxTag.TextBox.Text = serviceTag.ToString();
+            }
+        }
+
+        private void TextBoxServiceFee_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Regex finalCostValueRX = new Regex("^([0-9]{1,4})(\\.{1}[0-9]{2})$");
+            Regex CharacterInputRX = new Regex("^([0-9])|(\\.)");
+            
+
+        }
+
+        private void TextBoxServiceFee_TextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex CharacterInputRX = new Regex("^([0-9])|(\\.)");
+
+            if (CharacterInputRX.IsMatch(e.Text))
+            {
+                e.Handled = true;
+                TextBoxFeedback.Text = e.Text;
+            }
+            else { e.Handled = false; }
+        }
+
+        private void TextBoxServiceFee_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            
+
+        }
+
+        private void TextBoxServiceFee_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+
+        }
+
+        private void TextBoxServiceFee_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex rx = new Regex("^\\d{1,4}(\\.(\\d{1,2})?)?$");
+            string nextInput =  TextBoxServiceFee.Text + e.Text;
+            e.Handled = !rx.IsMatch(nextInput);
+        }
     }
-
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Windows.Media;
+﻿using System.Globalization;
 
 namespace DroneSerivceForm
 {
@@ -55,7 +53,7 @@ namespace DroneSerivceForm
         }
         public void SetIssue(string issue)
         {
-            if (!string.IsNullOrEmpty(_issue))
+            if (!string.IsNullOrEmpty(issue))
             {
                 _issue = issue;
             }
