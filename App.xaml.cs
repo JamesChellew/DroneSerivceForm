@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace DroneSerivceForm
+namespace DroneServiceForm
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace DroneSerivceForm
+namespace DroneServiceForm
 {
     internal class Drone
     {

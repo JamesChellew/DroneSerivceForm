@@ -1,10 +1,10 @@
-﻿<Window x:Class="DroneSerivceForm.MainWindow"
+﻿<Window x:Class="DroneServiceForm.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DroneSerivceForm"
-        xmlns:control="clr-namespace:DroneSerivceForm"
+        xmlns:local="clr-namespace:DroneServiceForm"
+        xmlns:control="clr-namespace:DroneServiceForm"
         mc:Ignorable="d"
         Title="MainWindow" Height="620" Width="775" Loaded="Window_Loaded" MinWidth="775" MinHeight="620" >
     <Grid x:Name="StatusStrip">
@@ -33,10 +33,10 @@
 
             <TextBlock HorizontalAlignment="Right" Margin="0,22,60,0" Text="Service Tag" Height="NaN"/>
 
-            <control:TextBoxIncrementer x:Name="TextBoxTag" HorizontalAlignment="Right" Margin="0,37,20,0" VerticalAlignment="Top" Width="100" MaxHeight="20" LostFocus="TextBoxTag_LostFocus"/>
+            <control:TextBoxIncrementor x:Name="TextBoxTag" HorizontalAlignment="Right" Margin="0,37,20,0" VerticalAlignment="Top" Width="100" MaxHeight="20" LostFocus="TextBoxTag_LostFocus" />
 
             <TextBlock HorizontalAlignment="Right" Margin="0,61,60,0" Text="Service Fee" Height="NaN"/>
-            <TextBox x:Name="TextBoxServiceFee" HorizontalAlignment="Right" Margin="0,77,20,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" LostFocus="TextBoxServiceFee_LostFocus" TextChanged="TextBoxServiceFee_TextChanged" TextInput="TextBoxServiceFee_TextInput" KeyDown="TextBoxServiceFee_KeyDown" PreviewKeyDown="TextBoxServiceFee_PreviewKeyDown" PreviewTextInput="TextBoxServiceFee_PreviewTextInput"/>
+            <TextBox x:Name="TextBoxServiceFee" HorizontalAlignment="Right" Margin="0,77,20,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" PreviewTextInput="TextBoxServiceFee_PreviewTextInput" PreviewKeyDown="TextBoxServiceFee_PreviewKeyDown" LostFocus="TextBoxServiceFee_LostFocus"/>
             <TextBlock x:Name="TextBlockErrorMessage" HorizontalAlignment="Right" Margin="0,95,20,0" TextWrapping="Wrap" Text="*Enter Valid Number" VerticalAlignment="Top" FontSize="8" Visibility="Hidden">
                 <TextBlock.Foreground>
                     <SolidColorBrush Color="Red" Opacity="1"/>
