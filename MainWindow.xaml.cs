@@ -105,12 +105,14 @@ namespace DroneServiceForm
         // Calculates total cost when checking Regular Radio, Gets the selection for correct calc
         private void RadioButtonRegular_Checked(object sender, RoutedEventArgs e)
         {
+            CheckServiceFeeValue();
             CalculateTotalCost(GetServicePriority());
             TextBoxFeedback.Text = "Total cost calculated";
         }
         // Calculates total cost when checking Express Radio, Gets the selection for correct calc
         private void RadioButtonExpress_Checked(object sender, RoutedEventArgs e)
         {
+            CheckServiceFeeValue();
             CalculateTotalCost(GetServicePriority());
             TextBoxFeedback.Text = "Total cost calculated";
         }
@@ -334,7 +336,7 @@ namespace DroneServiceForm
         {
             if (e.Key == System.Windows.Input.Key.Space)
             {
-                e.Handled = true;
+                e.Handled = true; // Handling means that it prevents the event from happening, ie stops the space input from happening.
             }
         }
     }
